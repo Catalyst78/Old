@@ -1,4 +1,4 @@
-/*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+﻿/*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 
 /**
  * 1. Set default font family to sans-serif.
@@ -550,8 +550,7 @@ p.tagline {
 }
 
 .download-bar a.code {
-  background: transparent url(../images/code.png) no-repeat 0 2px;
-  padding-left: 35px;
+  padding-left: 6px;
   margin-top: 8px;
   display: block;
   float: left;
@@ -559,6 +558,19 @@ p.tagline {
   width: auto;
   height: auto;
   opacity: 1;
+  filter:alpha(opacity=100);  /* IE 5-7 */
+}
+
+.download-bar p.code {
+  padding-left: 6px;
+  margin-top: 8px;
+  display: block;
+  float: left;
+  text-indent: 0;
+  width: auto;
+  height: auto;
+  opacity: 1;
+  color: #00AA00;
   filter:alpha(opacity=100);  /* IE 5-7 */
 }
 
@@ -586,7 +598,6 @@ p.tagline {
 .current-section a {
   float: right;
   text-indent: -10000px;
-  background: transparent url(../images/top.png) no-repeat 0 0;
   width: 20px;
   height: 20px;
   opacity: 0.8;
@@ -609,7 +620,6 @@ p.tagline {
 
 a.zip,
 a.zip span {
-  background: transparent url(../images/zip.png) no-repeat 0 0;
   width: 30px;
   height: 21px;
   display: inline-block;
@@ -622,7 +632,6 @@ a.zip span {
 
 a.tar,
 a.tar span {
-  background: transparent url(../images/tar.png) no-repeat 0 0;
   width: 30px;
   height: 21px;
   display: inline-block;
@@ -634,7 +643,6 @@ a.tar span {
 }
 
 a.code {
-  background: transparent url(../images/code.png) no-repeat 0 2px;
   width: 30px;
   height: 21px;
   display: block;

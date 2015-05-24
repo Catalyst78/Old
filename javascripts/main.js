@@ -1,3 +1,4 @@
+// Code for Game
 var cookies = 0;
 var cursors = 0;
 
@@ -39,20 +40,35 @@ function loadGame(){
 	document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1,cursors));
 }
 
+
+// Main Tabs
 var tabLinks = new Array();
 var contentDivs = new Array();
 
-function init() {
-  var tabListItems = document.getElementById('tabs').childNodes;
-  for ( var i = 0; i < tabListItems.length; i++ ) {
-	if ( tabListItems[i].nodeName == "LI" ) {
-	  var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
-	  var id = getHash( tabLink.getAttribute('href') );
-	  tabLinks[id] = tabLink;
-	  contentDivs[id] = document.getElementById( id );
-	}
-  }
+var upgradeTabLinks = new Array();
+var upgradeContentDivs = new Array();
 
+function init() {
+	var tabListItems = document.getElementById('tabs').childNodes;
+	for ( var i = 0; i < tabListItems.length; i++ ) {
+		if ( tabListItems[i].nodeName == "LI" ) {
+			var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+			var id = getHash( tabLink.getAttribute('href') );
+			tabLinks[id] = tabLink;
+			contentDivs[id] = document.getElementById( id );
+		}
+	}
+
+	var upgradeTabListItems = document.getElementsById('upgradeTabs');
+	for ( var i = 0; i < upgradeTabListItems.length; i++ ) {
+		if ( upgradeTabListItems[i].nodeName == "LI" ) {
+		var tabLink = getFirstChildWithTagName( upgradeTabListItems[i], 'A' );
+		var id = getHash( tabLink.getAttribute('href') );
+		upgradeTabLinks[id] = tabLink;
+		upgradeContentDivs[id] = document.getElementById( id );
+		}
+	}	
+  
   var i = 0;
   for ( var id in tabLinks ) {
 	tabLinks[id].onclick = showTab;
@@ -60,14 +76,43 @@ function init() {
 	if ( i == 0 ) tabLinks[id].className = 'selected';
 	i++;
   }
-
+  
   var i = 0;
-  for ( var id in contentDivs ) {
-	if ( i != 0 ) contentDivs[id].className = 'tabContent hide';
+  for ( var id in upgradeTabLinks ) {
+	upgradeTabLinks[id].onclick = showTab;
+	upgradeTabLinks[id].onfocus = function() { this.blur() };
+	if ( i == 0 ) upgradeTabLinks[id].className = 'selected';
+	i++;
+  }
+  
+	tabContentHide(contentDivs);
+	tabContentHide(upgradeContentDivs);
+}
+
+function tabContentHide(content) {
+  var i = 0;
+  for ( var id in content ) {
+	if ( i != 0 ) content[id].className = 'tabContent hide';
 	i++;
   }
 }
 
+function showTab() {
+  var selectedId = getHash( this.getAttribute('href') );
+
+  for ( var id in contentDivs ) {
+	if ( id == selectedId ) {
+	  tabLinks[id].className = 'selected';
+	  contentDivs[id].className = 'tabContent';
+	} else {
+	  tabLinks[id].className = '';
+	  contentDivs[id].className = 'tabContent hide';
+	}
+  }
+  return false;  // Stop the browser following the link
+}
+
+// Upgrade tabs
 function showTab() {
   var selectedId = getHash( this.getAttribute('href') );
 

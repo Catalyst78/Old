@@ -1,4 +1,4 @@
-// Code for Game
+// Code for Game ####################################################################################
 var cookies = 0;
 var cursors = 0;
 
@@ -41,12 +41,11 @@ function loadGame(){
 }
 
 
-// Main Tabs
+
+// Tabs #########################################################################################
 var tabLinks = new Array();
 var contentDivs = new Array();
-
-var upgradeTabLinks = new Array();
-var upgradeContentDivs = new Array();
+var defualtTabSelected = 1;
 
 function init() {
 	var tabListItems = document.getElementById('tabs').childNodes;
@@ -58,61 +57,28 @@ function init() {
 			contentDivs[id] = document.getElementById( id );
 		}
 	}
-
-	var upgradeTabListItems = document.getElementsById('upgradeTabs');
-	for ( var i = 0; i < upgradeTabListItems.length; i++ ) {
-		if ( upgradeTabListItems[i].nodeName == "LI" ) {
-		var tabLink = getFirstChildWithTagName( upgradeTabListItems[i], 'A' );
-		var id = getHash( tabLink.getAttribute('href') );
-		upgradeTabLinks[id] = tabLink;
-		upgradeContentDivs[id] = document.getElementById( id );
-		}
-	}	
-  
-  var i = 0;
-  for ( var id in tabLinks ) {
-	tabLinks[id].onclick = showTab;
-	tabLinks[id].onfocus = function() { this.blur() };
-	if ( i == 0 ) tabLinks[id].className = 'selected';
-	i++;
-  }
-  
-  var i = 0;
-  for ( var id in upgradeTabLinks ) {
-	upgradeTabLinks[id].onclick = showTab;
-	upgradeTabLinks[id].onfocus = function() { this.blur() };
-	if ( i == 0 ) upgradeTabLinks[id].className = 'selected';
-	i++;
-  }
-  
+    tabSelect(tabLinks);
 	tabContentHide(contentDivs);
-	tabContentHide(upgradeContentDivs);
+}
+
+function tabSelect(tabs){	
+var i = 0;
+  for ( var id in tabs ) {
+	tabs[id].onclick = showTab;
+	tabs[id].onfocus = function() { this.blur() };
+	if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+	i++;
+  }	
 }
 
 function tabContentHide(content) {
   var i = 0;
   for ( var id in content ) {
-	if ( i != 0 ) content[id].className = 'tabContent hide';
+	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
 	i++;
   }
 }
 
-function showTab() {
-  var selectedId = getHash( this.getAttribute('href') );
-
-  for ( var id in contentDivs ) {
-	if ( id == selectedId ) {
-	  tabLinks[id].className = 'selected';
-	  contentDivs[id].className = 'tabContent';
-	} else {
-	  tabLinks[id].className = '';
-	  contentDivs[id].className = 'tabContent hide';
-	}
-  }
-  return false;  // Stop the browser following the link
-}
-
-// Upgrade tabs
 function showTab() {
   var selectedId = getHash( this.getAttribute('href') );
 

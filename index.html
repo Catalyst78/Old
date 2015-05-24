@@ -14,146 +14,163 @@
   <meta name="description" content="Olivers Souls">
 </head>
 
-<body>
+<body onload="init()">
   <div class="wrapper">
     <header>
-      <h1 class="title">Olivers Souls</h1>
+		<h1 class="title">Olivers Souls</h1>
     </header>
     <div id="container">
-      <p class="tagline">Place Holder Text</p>
-      <div id="main" role="main">
+		<p class="tagline">Place Holder Text</p>
+		<div id="main" role="main">
         <div class="download-bar">
         <div class="inner">
-			<p class="code">Place Holder Text</p>
+			<!--<p class="code">Place Holder Text</p>-->
+			<ul id="tabs">
+				<li><a href="#main_tab">Main</a></li>
+				<li><a href="#upgrades_tab">Upgrades</a></li>
+				<li><a href="#settings_tab">Settings</a></li>
+			</ul>
         </div>
         <span class="blc"></span><span class="trc"></span>
         </div>
-        <article class="markdown-body">
-			<h3>Place Holder Title</h3>
-
-			<button onclick="cookieClick(1)">Click Me!</button> <br />
-			Cookies: <span id="cookies">0</span> <br />
-			<button onclick="buyCursor()">Buy Cursor</button> <br />
-			Cursors: <span id="cursors">0</span> <br />
-			Cursor Cost: <span id="cursorCost">10</span><br />
-			<button onclick="loadGame()">Load</button><br /><br />
-			<button onclick="saveGame()">Save</button><br /><br />
+        <article class="markdown-body">	
 			
-			<a href="#" class="littleSquare"> </a>
-			
-			<div class="upgrade grid">
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-				</div>			
-				<div class="section group">
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
-					<div class="col span_1_of_10">1 of 10</div>
+			<div class="tabContent" id="main_tab">
+			    <h2>Main</h2>
+				<div>
+					<button onclick="cookieClick(1)">Click Me!</button> <br />
+					Cookies: <span id="cookies">0</span> <br />
+					<button onclick="buyCursor()">Buy Cursor</button> <br />
+					Cursors: <span id="cursors">0</span> <br />
+					Cursor Cost: <span id="cursorCost">10</span><br />
+					<button onclick="loadGame()">Load</button><br /><br />
+					<button onclick="saveGame()">Save</button><br /><br />
+					<a href="#" class="littleSquare"> </a>
 				</div>
-			</div>
-			
+				</div>
+				<div class="tabContent" id="upgrades_tab">
+					<h2>Upgrades</h2>
+					<div>
+						<div class="upgrade grid">
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>			
+							<div class="section group">
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+								<div class="col span_1_of_10">1 of 10</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabContent" id="settings_tab">
+					<h2>Settings</h2>
+					<div>
+					<p>Place holder text</p>
+					</div>
+				</div>
 			<script type="text/javascript" src="javascripts/main.js"></script>
-        </article>
-      </div>
+		</article>
+		</div>
     </div>
     <footer>
-      <div class="owner">
+		<div class="owner">
 
-      <p>Place Holder Text</p>
-      </div>
-      <!--
-	  <div class="creds">
-        <small>original theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-	  -->
+		<p>Place Holder Text</p>
+		</div>
+		<!--
+		<div class="creds">
+		<small>original theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+		</div>
+		-->
     </footer>
   </div>
 </body>

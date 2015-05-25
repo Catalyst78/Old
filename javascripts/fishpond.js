@@ -1,4 +1,3 @@
-// Code for fish thing
 var canvas;
 var surface
 var currentScreen;

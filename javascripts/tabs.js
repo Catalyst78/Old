@@ -18,20 +18,20 @@ function init() {
 
 function tabSelect(tabs){	
 var i = 0;
-  for ( var id in tabs ) {
-	tabs[id].onclick = showTab;
-	tabs[id].onfocus = function() { this.blur() };
-	if ( i == defualtTabSelected ) tabs[id].className = 'selected';
-	i++;
-  }	
+	for ( var id in tabs ) {
+		tabs[id].onclick = showTab;
+		tabs[id].onfocus = function() { this.blur() };
+		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+		i++;
+	}	
 }
 
 function tabContentHide(content) {
-  var i = 0;
-  for ( var id in content ) {
+	var i = 0;
+	for ( var id in content ) {
 	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
-	i++;
-  }
+		i++;
+	}
 }
 
 function showTab() {

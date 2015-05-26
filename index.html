@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="myApp">
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -8,8 +8,6 @@
 	<link rel="stylesheet" href="stylesheets/pygment_trac.css">
 	<title>Olivers Souls</title>
 	<meta name="description" content="Olivers Souls">
-	<script src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 	<script type="text/javascript" src="javascripts/main.js"></script>
 </head>
 
@@ -38,13 +36,11 @@
 			<div class="tabContent" id="main_tab" ng-controller="MainController">
 				<h2>Main</h2>
 				<div>
-					<button ng-click="cookieClick(1)" class="button">Click Me!</button><br />
-					Cookies: {{ cookies }} <br />
-					<button ng-click="buyCursor(1)" class="button">Buy Cursor</button>
-					Cursors: {{ cursors }} <br />
-					Cursor Cost: {{ cursorCost }}<br />
-					<button ng-click="load(1)" class="button">Load</button><br />
-					<button ng-click="save()" class="button">Save</button><br />
+                    <button onclick="cookieClick(1)">Click Me!</button> <br />
+                    Cookies: <span id="cookies">0</span> <br />
+                    <button onclick="buyCursor()">Buy Cursor</button> <br />
+                    Cursors: <span id="cursors">0</span> <br />
+                    Cursor Cost: <span id="cursorCost">10</span><br />
 					<a href="#" class="littleSquare"> </a>
 				</div>
 			</div>

@@ -1,127 +1,134 @@
-var app = angular.module('myApp', []);
+// Main
+var resources = {
+	cookies:0,
+	cursors:0
+};
 
+function modifyResource(resource, number) {
+	resources[resource] += number;
+	document.getElementById(resource).innerHTML = resources[resource];
+}
 
-app.controller('MainController', function($scope) {
-  var resources = {
-		cookies:0,
-		cursors:0,
-		cursorCost:10
+function setResource(resource, number) {
+	resources[resource] = number;
+	document.getElementById(resource).innerHTML = resources[resource];
+
+}
+
+function updateAll() {
+	document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
+}
+
+function cookieClick(number) {
+	modifyResource("cookies", number)
+};
+
+function buyCursor() {
+	var cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));  
+	if(resources.cookies >= cursorCost){                                 
+		modifyResource("cursors", 1)                               
+		modifyResource("cookies", -resources.cursors)                     
+		document.getElementById('cookies').innerHTML = resources.cookies;  
 	};
-	
+	var nextCost = Math.floor(10 * Math.pow(1.1,resources.cursors));      
+	document.getElementById('cursorCost').innerHTML = nextCost; 
+};
+
+// Save & Load
+function saveGame() {
+	var save = {
+		cookies: resources.cookies,
+		cursors: resources.cursors
+	}	
+	localStorage.setItem("save",JSON.stringify(save));
+}
+
+function loadGame() {
+	var savegame = JSON.parse(localStorage.getItem("save"));
+	if (typeof savegame.cookies !== "undefined") setResource("cookies", savegame.cookies);
+	if (typeof savegame.cursors !== "undefined") setResource("cursors", savegame.cursors);
 	updateAll();
-	function updateAll() {
-		$scope.cookies = resources.cookies;
-		$scope.cursors = resources.cursors;
-		$scope.cursorCost = resources.cursorCost;
-	}
-	
-	function add(resource, value){
-		resources.resource += value;
-	}
-	
-  $scope.cookieClick = function(amount) { 
-		add(resources.cookies, amount);
-		$scope.cookies = resources.cookies;
-	};
-	
-	$scope.buyCursor = function(amount) { 
-		cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));
-		if(resources.cookies >= cursorCost) {        
-			resources.cursors = resources.cursors + 1;      
-			resources.cookies = resources.cookies - cursorCost;  
-			$scope.cursors = resources.cursors;
-			$scope.cookies = resources.cookies;
-		};
-		$scope.cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));
-	};
-	
-	
-	// Interval
-	setInterval(function() {
-		add("cookies", resources.cursors);
-		$scope.cookies = resources.cookies;
-	}, 1000);
-	
-	
-	// Save & Load
-	$scope.save = function(amount) { 
-		var save = {
-			cookies: resources.cookies,
-			cursors: resources.cursors
-		}	
-		localStorage.setItem("save",JSON.stringify(save));
-	};
-
-	$scope.load = function(amount) { 
-		var savegame = JSON.parse(localStorage.getItem("save"));
-		if (typeof savegame.cookies !== "undefined") resources.cookies = savegame.cookies;
-		if (typeof savegame.cookies !== "undefined") resources.cursors = savegame.cursors;
-		$scope.cookies = resources.cookies;
-		$scope.cursors = resources.cursors;
-  };
-});
+}
 
 
 
-// Tabs ###############################################################################
+
+// Tabs
 var tabLinks = new Array();
 var contentDivs = new Array();
 var defualtTabSelected = 0;
 
-function init() {
-	var tabListItems = document.getElementById('tabs').childNodes;
-	for ( var i = 0; i < tabListItems.length; i++ ) {
-		if ( tabListItems[i].nodeName == "LI" ) {
-			var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
-			var id = getHash( tabLink.getAttribute('href') );
-			tabLinks[id] = tabLink;
-			contentDivs[id] = document.getElementById( id );
-		}
-	}
+function prepareTabs() {
+    var tabListItems = document.getElementById('tabs').childNodes;
+    for ( var i = 0; i < tabListItems.length; i++ ) {
+        if ( tabListItems[i].nodeName == "LI" ) {
+            var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+            var id = getHash( tabLink.getAttribute('href') );
+            tabLinks[id] = tabLink;
+            contentDivs[id] = document.getElementById( id );
+        }
+    }
     tabSelect(tabLinks);
-	tabContentHide(contentDivs);
+    tabContentHide(contentDivs);
 }
 
-function tabSelect(tabs){	
+function tabSelect(tabs) {    
 var i = 0;
-	for ( var id in tabs ) {
-		tabs[id].onclick = showTab;
-		tabs[id].onfocus = function() { this.blur() };
-		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
-		i++;
-	}	
+    for ( var id in tabs ) {
+        tabs[id].onclick = showTab;
+        tabs[id].onfocus = function() { this.blur() };
+        if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+        i++;
+    }    
 }
 
 function tabContentHide(content) {
-	var i = 0;
-	for ( var id in content ) {
-	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
-		i++;
-	}
+    var i = 0;
+    for ( var id in content ) {
+    if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
+        i++;
+    }
 }
 
 function showTab() {
   var selectedId = getHash( this.getAttribute('href') );
 
   for ( var id in contentDivs ) {
-	if ( id == selectedId ) {
-	  tabLinks[id].className = 'selected';
-	  contentDivs[id].className = 'tabContent';
-	} else {
-	  tabLinks[id].className = '';
-	  contentDivs[id].className = 'tabContent hide';
-	}
+    if ( id == selectedId ) {
+      tabLinks[id].className = 'selected';
+      contentDivs[id].className = 'tabContent';
+    } else {
+      tabLinks[id].className = '';
+      contentDivs[id].className = 'tabContent hide';
+    }
   }
-  return false;  // Stop the browser following the link
+  return false;
 }
 
 function getFirstChildWithTagName( element, tagName ) {
   for ( var i = 0; i < element.childNodes.length; i++ ) {
-	if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+    if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
   }
 }
 
 function getHash( url ) {
   var hashPos = url.lastIndexOf ( '#' );
   return url.substring( hashPos + 1 );
+}
+
+// Init
+function init() {
+	prepareTabs();
+	loadGame()
+	var intervalCount = 0;
+
+	window.setInterval(function(){
+		cookieClick(resources.cursors);
+		
+		if (intervalCount > 10){
+			saveGame() 
+			intervalCount = 0;
+		}
+		intervalCount += 1;
+	}, 1000);
 }

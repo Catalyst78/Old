@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="myApp">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -8,8 +8,9 @@
 	<link rel="stylesheet" href="stylesheets/pygment_trac.css">
 	<title>Olivers Souls</title>
 	<meta name="description" content="Olivers Souls">
+	<script src="http://www.parsecdn.com/js/parse-1.3.5.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-	<script>angular.module('myApp', ['angulartics', 'angulartics.google.analytics'])</script>
+	<script type="text/javascript" src="javascripts/main.js"></script>
 </head>
 
 <body onload="init()">
@@ -27,23 +28,23 @@
 				<ul id="tabs">
 					<li><a href="#main_tab">Main</a></li>
 					<li><a href="#upgrades_tab">Upgrades</a></li>
-					<li><a href="#test_tab">Test</a></li>
+					<li><a href="#settings_tab">Settings</a></li>
 				</ul>
 			</div>
 			<span class="blc"></span><span class="trc"></span>
 		</div>
 		<article class="markdown-body">	
 			
-			<div class="tabContent" id="main_tab">
+			<div class="tabContent" id="main_tab" ng-controller="MainController">
 				<h2>Main</h2>
 				<div>
-					<button analytics-on="click" analytics-event="CookieClicked" onclick="cookieClick(1)">Click Me!</button> <br />
-					Cookies: <span id="cookies">0</span> <br />
-					<button onclick="buyCursor()">Buy Cursor</button> <br />
-					Cursors: <span id="cursors">0</span> <br />
-					Cursor Cost: <span id="cursorCost">10</span><br />
-					<button onclick="loadGame()">Load</button><br /><br />
-					<button onclick="saveGame()">Save</button><br /><br />
+					<button ng-click="cookieClick(1)" class="button">Click Me!</button><br />
+					Cookies: {{ cookies }} <br />
+					<button ng-click="buyCursor(1)" class="button">Buy Cursor</button>
+					Cursors: {{ cursors }} <br />
+					Cursor Cost: {{ cursorCost }}<br />
+					<button ng-click="load(1)" class="button">Load</button><br />
+					<button ng-click="save()" class="button">Save</button><br />
 					<a href="#" class="littleSquare"> </a>
 				</div>
 			</div>
@@ -116,23 +117,12 @@
 				</div>
 			</div>
 			
-			<div class="tabContent" id="test_tab">
-				<h2>Thing!</h2>
+			<div class="tabcontent" id="settings_tab">
+				<h2>Settings</h2>
 				<div>
-					<canvas id="board" />
-					<script type="text/javascript" src="javascripts/tabs.js"</script>
 				</div>
 			</div>
-			<script>
-				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-				ga('create', 'UA-63369055-2', 'auto');
-			</script>
-
-			<script type="text/javascript" src="javascripts/main.js"></script>
-			<script type="text/javascript" src="javascripts/fishpond.js"></script>
+			
 		</article>
 	</div>
 </div>

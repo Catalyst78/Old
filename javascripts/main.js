@@ -1,40 +1,127 @@
-var cookies = 0;
-var cursors = 0;
+var app = angular.module('myApp', []);
 
-function cookieClick(number){
-	cookies = cookies + number;
-	document.getElementById("cookies").innerHTML = cookies;
-};
 
-function buyCursor(){
-	var cursorCost = Math.floor(10 * Math.pow(1.1,cursors));     //works out the cost of this cursor
-	if(cookies >= cursorCost){                                   //checks that the player can afford the cursor
-		cursors = cursors + 1;                                   //increases number of cursors
-		cookies = cookies - cursorCost;                          //removes the cookies spent
-		document.getElementById('cursors').innerHTML = cursors;  //updates the number of cursors for the user
-		document.getElementById('cookies').innerHTML = cookies;  //updates the number of cookies for the user
+app.controller('MainController', function($scope) {
+  var resources = {
+		cookies:0,
+		cursors:0,
+		cursorCost:10
 	};
-	var nextCost = Math.floor(10 * Math.pow(1.1,cursors));       //works out the cost of the next cursor
-	document.getElementById('cursorCost').innerHTML = nextCost;  //updates the cursor cost for the user
-};
+	
+	updateAll();
+	function updateAll() {
+		$scope.cookies = resources.cookies;
+		$scope.cursors = resources.cursors;
+		$scope.cursorCost = resources.cursorCost;
+	}
+	
+	function add(resource, value){
+		resources.resource += value;
+	}
+	
+  $scope.cookieClick = function(amount) { 
+		add(resources.cookies, amount);
+		$scope.cookies = resources.cookies;
+	};
+	
+	$scope.buyCursor = function(amount) { 
+		cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));
+		if(resources.cookies >= cursorCost) {        
+			resources.cursors = resources.cursors + 1;      
+			resources.cookies = resources.cookies - cursorCost;  
+			$scope.cursors = resources.cursors;
+			$scope.cookies = resources.cookies;
+		};
+		$scope.cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));
+	};
+	
+	
+	// Interval
+	setInterval(function() {
+		add("cookies", resources.cursors);
+		$scope.cookies = resources.cookies;
+	}, 1000);
+	
+	
+	// Save & Load
+	$scope.save = function(amount) { 
+		var save = {
+			cookies: resources.cookies,
+			cursors: resources.cursors
+		}	
+		localStorage.setItem("save",JSON.stringify(save));
+	};
 
-window.setInterval(function(){
-	cookieClick(cursors);
-}, 1000);
+	$scope.load = function(amount) { 
+		var savegame = JSON.parse(localStorage.getItem("save"));
+		if (typeof savegame.cookies !== "undefined") resources.cookies = savegame.cookies;
+		if (typeof savegame.cookies !== "undefined") resources.cursors = savegame.cursors;
+		$scope.cookies = resources.cookies;
+		$scope.cursors = resources.cursors;
+  };
+});
 
-function saveGame(){
-	var save = {
-		cookies: cookies,
-		cursors: cursors
-	}	
-	localStorage.setItem("save",JSON.stringify(save));
+
+
+// Tabs ###############################################################################
+var tabLinks = new Array();
+var contentDivs = new Array();
+var defualtTabSelected = 0;
+
+function init() {
+	var tabListItems = document.getElementById('tabs').childNodes;
+	for ( var i = 0; i < tabListItems.length; i++ ) {
+		if ( tabListItems[i].nodeName == "LI" ) {
+			var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+			var id = getHash( tabLink.getAttribute('href') );
+			tabLinks[id] = tabLink;
+			contentDivs[id] = document.getElementById( id );
+		}
+	}
+    tabSelect(tabLinks);
+	tabContentHide(contentDivs);
 }
 
-function loadGame(){
-	var savegame = JSON.parse(localStorage.getItem("save"));
-	if (typeof savegame.cookies !== "undefined") cookies = savegame.cookies;
-	if (typeof savegame.cookies !== "undefined") cursors = savegame.cursors;
-	document.getElementById("cookies").innerHTML = cookies;
-	document.getElementById('cursors').innerHTML = cursors;
-	document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1,cursors));
+function tabSelect(tabs){	
+var i = 0;
+	for ( var id in tabs ) {
+		tabs[id].onclick = showTab;
+		tabs[id].onfocus = function() { this.blur() };
+		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+		i++;
+	}	
+}
+
+function tabContentHide(content) {
+	var i = 0;
+	for ( var id in content ) {
+	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
+		i++;
+	}
+}
+
+function showTab() {
+  var selectedId = getHash( this.getAttribute('href') );
+
+  for ( var id in contentDivs ) {
+	if ( id == selectedId ) {
+	  tabLinks[id].className = 'selected';
+	  contentDivs[id].className = 'tabContent';
+	} else {
+	  tabLinks[id].className = '';
+	  contentDivs[id].className = 'tabContent hide';
+	}
+  }
+  return false;  // Stop the browser following the link
+}
+
+function getFirstChildWithTagName( element, tagName ) {
+  for ( var i = 0; i < element.childNodes.length; i++ ) {
+	if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+  }
+}
+
+function getHash( url ) {
+  var hashPos = url.lastIndexOf ( '#' );
+  return url.substring( hashPos + 1 );
 }

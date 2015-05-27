@@ -4,7 +4,7 @@ function init() {
 	
 	var intervalCount = 0;
 	window.setInterval(function(){
-		cookieClick(resources.cursors);
+		mainClick(resources.cursors);
 		
 		if (intervalCount > 10){
 			saveGame() 

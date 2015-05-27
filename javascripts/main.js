@@ -1,3 +1,19 @@
+function init() {
+	prepareTabs();
+	loadGame()
+	
+	var intervalCount = 0;
+	window.setInterval(function(){
+		cookieClick(resources.cursors);
+		
+		if (intervalCount > 10){
+			saveGame() 
+			intervalCount = 0;
+		}
+		intervalCount += 1;
+	}, 1000);
+}
+
 // Main
 var resources = {
 	cookies:0,
@@ -12,7 +28,6 @@ function modifyResource(resource, number) {
 function setResource(resource, number) {
 	resources[resource] = number;
 	document.getElementById(resource).innerHTML = resources[resource];
-
 }
 
 function updateAll() {
@@ -59,35 +74,35 @@ var contentDivs = new Array();
 var defualtTabSelected = 0;
 
 function prepareTabs() {
-    var tabListItems = document.getElementById('tabs').childNodes;
-    for ( var i = 0; i < tabListItems.length; i++ ) {
-        if ( tabListItems[i].nodeName == "LI" ) {
-            var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
-            var id = getHash( tabLink.getAttribute('href') );
-            tabLinks[id] = tabLink;
-            contentDivs[id] = document.getElementById( id );
-        }
-    }
-    tabSelect(tabLinks);
-    tabContentHide(contentDivs);
+	var tabListItems = document.getElementById('tabs').childNodes;
+	for ( var i = 0; i < tabListItems.length; i++ ) {
+		if ( tabListItems[i].nodeName == "LI" ) {
+			var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+			var id = getHash( tabLink.getAttribute('href') );
+			tabLinks[id] = tabLink;
+			contentDivs[id] = document.getElementById( id );
+		}
+	}
+	tabSelect(tabLinks);
+	tabContentHide(contentDivs);
 }
 
 function tabSelect(tabs) {    
-var i = 0;
-    for ( var id in tabs ) {
-        tabs[id].onclick = showTab;
-        tabs[id].onfocus = function() { this.blur() };
-        if ( i == defualtTabSelected ) tabs[id].className = 'selected';
-        i++;
-    }    
+	var i = 0;
+	for ( var id in tabs ) {
+		tabs[id].onclick = showTab;
+		tabs[id].onfocus = function() { this.blur() };
+		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+		i++;
+	}    
 }
 
 function tabContentHide(content) {
-    var i = 0;
-    for ( var id in content ) {
-    if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
-        i++;
-    }
+	var i = 0;
+	for ( var id in content ) {
+	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
+		i++;
+	}
 }
 
 function showTab() {
@@ -105,30 +120,20 @@ function showTab() {
   return false;
 }
 
-function getFirstChildWithTagName( element, tagName ) {
+function getFirstChildWithTagName(element, tagName) {
   for ( var i = 0; i < element.childNodes.length; i++ ) {
     if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
   }
 }
 
-function getHash( url ) {
+function getHash(url) {
   var hashPos = url.lastIndexOf ( '#' );
   return url.substring( hashPos + 1 );
 }
 
-// Init
-function init() {
-	prepareTabs();
-	loadGame()
-	var intervalCount = 0;
-
-	window.setInterval(function(){
-		cookieClick(resources.cursors);
-		
-		if (intervalCount > 10){
-			saveGame() 
-			intervalCount = 0;
-		}
-		intervalCount += 1;
-	}, 1000);
+var totalTabs = 48;
+function tellThing(tabClicked) {
+	for (var a = 1; a <= totalTabs; a++){
+		document.getElementById("ug" + a).innerHTML = a;
+	}
 }

@@ -146,29 +146,10 @@ function getHash(url) {
   return url.substring( hashPos + 1 );
 }
 
-<<<<<<< Updated upstream
 var totalTabs = 48;
 function tellThing(tabClicked) {
 	for (var a = 1; a <= totalTabs; a++){
 		document.getElementById("ug" + a).innerHTML = a;
 	}
-=======
-// Init
-var intervalCount = 0;
-	
-function init() {
-	prepareTabs();
-	loadGame()
-
-
-	window.setInterval(function(){
-		mainClick(resources.cursors);
-		
-		if (intervalCount > 10){
-			saveGame() 
-			intervalCount = 0;
-		}
-		intervalCount += 1;
-	}, 1000);
->>>>>>> Stashed changes
 }
+var intervalCount = 0;

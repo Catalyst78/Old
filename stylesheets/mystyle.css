@@ -1,72 +1,31 @@
-﻿/* Custom Buttons */
-.littleSquare {
-	-moz-box-shadow:inset 0px 1px 0px 0px #bee2f9;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #bee2f9;
-	box-shadow:inset 0px 1px 0px 0px #bee2f9;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #63b8ee), color-stop(1, #468ccf));
-	background:-moz-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
-	background:-webkit-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
-	background:-o-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
-	background:-ms-linear-gradient(top, #63b8ee 5%, #468ccf 100%);
-	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#63b8ee', endColorstr='#468ccf',GradientType=0);
-	background-color:#63b8ee;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #3866a3;
-	display:inline-block;
-	cursor:pointer;
-	color:#14396a;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:16px 16px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #7cacde;
-}
-
-.littleSquare:active {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee));
-	background:-moz-linear-gradient(top, #468ccf 5%, #63b8ee 100%);
-	background:-webkit-linear-gradient(top, #468ccf 5%, #63b8ee 100%);
-	background:-o-linear-gradient(top, #468ccf 5%, #63b8ee 100%);
-	background:-ms-linear-gradient(top, #468ccf 5%, #63b8ee 100%);
-	background:linear-gradient(to bottom, #468ccf 5%, #63b8ee 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee',GradientType=0);
-	background-color:#468ccf;
-}
-
-/* Tabs Style */
+﻿/* Tabs Style */
 h2{
 	text-align: center;
 	padding-right: 6px;
 }
-
 ul#tabs { 
 	list-style-type: none;
-	margin: 30px 0 0 0; 
+	margin: 9px 0 0 0; 
 	padding: 0 0 0.3em 0; 
 }
 ul#tabs li { 
 	display: inline; 
 }
 ul#tabs li a { 
-	color: #42454a; 
-	background-color: #dedbde; 
-	border: 1px solid #c9c3ba; 
-	border-bottom: none; 
-	padding: 0.3em; 
+	border: 1px solid #000000; 
+	padding: 1.6em; 
 	text-decoration: none; 
 }
 ul#tabs li a:hover { 
 	background-color: #f1f0ee; 
 }
 ul#tabs li a.selected { 
+	border: 1px solid #c9c3ba; 
+	border-bottom: none; 
+	padding: 1.6em; 
+	text-decoration: none; 
 	color: #000; 
 	background-color: #f1f0ee; 
-	font-weight: bold; 
-	
 }
 div.tabContent { 
 	border: 1px solid #c9c3ba; 
@@ -81,11 +40,9 @@ div.tabContent.hide {
 .span_3_of_3 {
 	width: 100%; 
 }
-
 .span_2_of_3 {
 	width: 66.13%; 
 }
-
 .span_1_of_3 {
 	width: 32.26%; 
 }
@@ -105,35 +62,27 @@ div.tabContent.hide {
 .span_9_of_9 {
 	width: 100%;
 }
-
 .span_8_of_9 {
 	width: 88.71%;
 }
-
 .span_7_of_9 {
 	width: 77.42%; 
 }
-
 .span_6_of_9 {
 	width: 66.13%; 
 }
-
 .span_5_of_9 {
 	width: 54.84%; 
 }
-
 .span_4_of_9 {
 	width: 43.55%; 
 }
-
 .span_3_of_9 {
 	width: 32.26%;
 }
-
 .span_2_of_9 {
 	width: 20.97%; 
 }
-
 .span_1_of_9 {
 	width: 9.68%; 
 }

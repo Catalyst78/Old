@@ -32,9 +32,12 @@ function setResource(resource, number) {
 
 function updateAll() {
 	document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
+	for (resource in resources){
+		document.getElementById(resource).innerHTML = resources[resource];
+	}
 }
 
-function cookieClick(number) {
+function mainClick(number) {
 	modifyResource("cookies", number)
 };
 
@@ -42,7 +45,7 @@ function buyCursor() {
 	var cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));  
 	if(resources.cookies >= cursorCost){                                 
 		modifyResource("cursors", 1)                               
-		modifyResource("cookies", -resources.cursors)                     
+		modifyResource("cookies", -cursorCost)                     
 		document.getElementById('cookies').innerHTML = resources.cookies;  
 	};
 	var nextCost = Math.floor(10 * Math.pow(1.1,resources.cursors));      
@@ -65,7 +68,19 @@ function loadGame() {
 	updateAll();
 }
 
-
+function clearAllData() {
+	intervalCount = 0;
+	var save = {
+		cookies: 0,
+		cursors: 0
+	}	
+	localStorage.setItem("save",JSON.stringify(save));
+	for(var resource in resources){
+		resources[resource] = 0;
+	}
+	updateAll();
+	tabSelect(0);
+}
 
 
 // Tabs
@@ -131,9 +146,29 @@ function getHash(url) {
   return url.substring( hashPos + 1 );
 }
 
+<<<<<<< Updated upstream
 var totalTabs = 48;
 function tellThing(tabClicked) {
 	for (var a = 1; a <= totalTabs; a++){
 		document.getElementById("ug" + a).innerHTML = a;
 	}
+=======
+// Init
+var intervalCount = 0;
+	
+function init() {
+	prepareTabs();
+	loadGame()
+
+
+	window.setInterval(function(){
+		mainClick(resources.cursors);
+		
+		if (intervalCount > 10){
+			saveGame() 
+			intervalCount = 0;
+		}
+		intervalCount += 1;
+	}, 1000);
+>>>>>>> Stashed changes
 }

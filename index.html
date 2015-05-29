@@ -33,13 +33,10 @@
 		
 		<article class="markdown-body">	
 			<div class="tabContent" id="main_tab" ng-controller="MainController">
-			<h2>Main</h2>
-				<button onclick="mainClick(1)">Click Me!</button> <br />
-				Cookies: <span id="cookies">0</span> <br />
-				<button onclick="buyCursor()">Buy Cursor</button> <br />
-				Cursors: <span id="cursors">0</span> <br />
-				Cursor Cost: <span id="cursorCost">10</span><br />
-				<button class="littleSquare" onclick="tellThing()">Buy Cursor</button>
+				<h2>Main</h2>
+				<p>Bunny in an asteroid.</p>
+				<button onclick="explore(1)">Explore!</button><br />
+				Territory explored: <span id="territory">0</span>
 			</div>
 			
 			<div class="tabContent" id="upgrades_tab">
@@ -119,7 +116,7 @@
 
 <footer>
 	<div class="owner">
-	<br /><br /><br />
+		<p class="console" id="bunnyConsole" READONLY></p>
 	</div>
 </footer>
 

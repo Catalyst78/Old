@@ -1,12 +1,16 @@
 function init() {
 	prepareTabs();
-	loadGame()
+	setConsole([" "," "," "," "," "," "," "," "," "," "]);
+	//clearAllData();
+	if (!(localStorage.getItem("save") == true )) {
+		loadGame();	
+	}
 	
 	var intervalCount = 0;
-	window.setInterval(function(){
-		mainClick(resources.cursors);
+	window.setInterval(function() {
+		//mainClick(resources.cursors);
 		
-		if (intervalCount > 10){
+		if (intervalCount > 10) {
 			saveGame() 
 			intervalCount = 0;
 		}
@@ -16,8 +20,7 @@ function init() {
 
 // Main
 var resources = {
-	cookies:0,
-	cursors:0
+	territory:0
 };
 
 function modifyResource(resource, number) {
@@ -31,49 +34,71 @@ function setResource(resource, number) {
 }
 
 function updateAll() {
-	document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
+	//document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
 	for (resource in resources){
 		document.getElementById(resource).innerHTML = resources[resource];
 	}
 }
 
-function mainClick(number) {
-	modifyResource("cookies", number)
+function explore(number) {
+	modifyResource("territory", number)
+	updateConsole(resources.territory);
 };
 
 function buyCursor() {
 	var cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));  
-	if(resources.cookies >= cursorCost){                                 
+	if(resources.territory >= cursorCost){                                 
 		modifyResource("cursors", 1)                               
-		modifyResource("cookies", -cursorCost)                     
-		document.getElementById('cookies').innerHTML = resources.cookies;  
+		modifyResource("territory", -cursorCost)                     
+		document.getElementById('territory').innerHTML = resources.territory;  
 	};
 	var nextCost = Math.floor(10 * Math.pow(1.1,resources.cursors));      
 	document.getElementById('cursorCost').innerHTML = nextCost; 
 };
 
+// Console
+var consoleList = [];
+var maxLines = 999;
+
+function setConsole(consoleLineList) {
+	for (var a = consoleLineList.length - 1; a >= 0; a--){
+		updateConsole(consoleLineList[a]);
+	}
+}
+
+function updateConsole(newLine) {
+	consoleList.unshift(newLine);
+	if (consoleList.length > maxLines) { consoleList.pop(); }
+	var datConsoleText = "";
+	for (var a = 0; a < consoleList.length; a++) {
+		datConsoleText += consoleList[a] + "<br>";
+	}
+	document.getElementById("bunnyConsole").innerHTML = datConsoleText;
+}
+
 // Save & Load
 function saveGame() {
 	var save = {
-		cookies: resources.cookies,
-		cursors: resources.cursors
+		consoleData: consoleList,
+		territory: resources.territory
 	}	
 	localStorage.setItem("save",JSON.stringify(save));
+	console.log("Saved");
 }
 
 function loadGame() {
-	var savegame = JSON.parse(localStorage.getItem("save"));
-	if (typeof savegame.cookies !== "undefined") setResource("cookies", savegame.cookies);
-	if (typeof savegame.cursors !== "undefined") setResource("cursors", savegame.cursors);
+	var saveGame = JSON.parse(localStorage.getItem("save"));
+	if (typeof saveGame.consoleData !== "undefined") setConsole(saveGame.consoleData);
+	if (typeof saveGame.territory !== "undefined") setResource("territory", saveGame.territory);
 	updateAll();
 }
 
 function clearAllData() {
 	intervalCount = 0;
 	var save = {
-		cookies: 0,
-		cursors: 0
-	}	
+		territory: 0,
+	}
+	setConsole([" "," "," "," "," "," "," "," "," "," "]);
 	localStorage.setItem("save",JSON.stringify(save));
 	for(var resource in resources){
 		resources[resource] = 0;

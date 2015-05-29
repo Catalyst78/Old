@@ -36,6 +36,13 @@ div.tabContent.hide {
 	display: none; 
 }
 
+/* Console */
+.console{
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 1.15;
+}
+
 /*  GRID   ============================================================================= */
 .span_3_of_3 {
 	width: 100%; 

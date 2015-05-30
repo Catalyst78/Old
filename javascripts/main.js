@@ -1,6 +1,6 @@
 function init() {
 	prepareTabs();
-	setConsole([" "," "," "," "," "," "," "," "," "," "]);
+	for (var i = 0; i < maxLines; i++)
 	//clearAllData();
 	if (!(localStorage.getItem("save") == true )) {
 		loadGame();	
@@ -58,7 +58,7 @@ function buyCursor() {
 
 // Console
 var consoleList = [];
-var maxLines = 999;
+var maxLines = 12;
 
 function setConsole(consoleLineList) {
 	for (var a = consoleLineList.length - 1; a >= 0; a--){

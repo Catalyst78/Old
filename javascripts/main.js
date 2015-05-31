@@ -1,14 +1,15 @@
 function init() {
 	prepareTabs();
-	for (var i = 0; i < maxLines; i++)
-	//clearAllData();
-	if (!(localStorage.getItem("save") == true )) {
+	clearConsole();
+
+	if (!(localStorage.getItem("save") == true )) 
 		loadGame();	
-	}
 	
 	var intervalCount = 0;
 	window.setInterval(function() {
-		//mainClick(resources.cursors);
+		if (incrementMe.resource !== "") 
+			modifyResource(incrementMe.resource, incrementMe.number);
+		
 		
 		if (intervalCount > 10) {
 			saveGame() 
@@ -17,11 +18,20 @@ function init() {
 		intervalCount += 1;
 	}, 1000);
 }
-
+                               
 // Main
 var resources = {
 	territory:0
 };
+
+var incrementMe = {
+	resource:"",
+	number:0
+}
+function incrementResource(resource, number) {
+	incrementMe.resource = resource;
+	incrementMe.number = number;
+}
 
 function modifyResource(resource, number) {
 	resources[resource] += number;
@@ -35,14 +45,15 @@ function setResource(resource, number) {
 
 function updateAll() {
 	//document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
-	for (resource in resources){
+	for (resource in resources)
 		document.getElementById(resource).innerHTML = resources[resource];
-	}
 }
 
-function explore(number) {
-	modifyResource("territory", number)
-	updateConsole(resources.territory);
+function explore() {
+	incrementMe.resource = "territory";
+	incrementMe.number = 1;
+	document.getElementById('explore_button').disabled = "disabled";
+	document.getElementById('explore_button').innerHTML = '<img class="nopadd" src="images/bunny.gif">';
 };
 
 function buyCursor() {
@@ -60,19 +71,23 @@ function buyCursor() {
 var consoleList = [];
 var maxLines = 12;
 
+function clearConsole() {
+	for (var i = 0; i < maxLines; i++) 
+		updateConsole(""); 
+}
+
 function setConsole(consoleLineList) {
-	for (var a = consoleLineList.length - 1; a >= 0; a--){
+	for (var a = consoleLineList.length - 1; a >= 0; a--)
 		updateConsole(consoleLineList[a]);
-	}
 }
 
 function updateConsole(newLine) {
 	consoleList.unshift(newLine);
-	if (consoleList.length > maxLines) { consoleList.pop(); }
+	if (consoleList.length > maxLines)  
+		consoleList.pop(); 
 	var datConsoleText = "";
-	for (var a = 0; a < consoleList.length; a++) {
+	for (var a = 0; a < consoleList.length; a++) 
 		datConsoleText += consoleList[a] + "<br>";
-	}
 	document.getElementById("bunnyConsole").innerHTML = datConsoleText;
 }
 
@@ -98,15 +113,14 @@ function clearAllData() {
 	var save = {
 		territory: 0,
 	}
-	setConsole([" "," "," "," "," "," "," "," "," "," "]);
+	clearConsole();
 	localStorage.setItem("save",JSON.stringify(save));
-	for(var resource in resources){
+	for(var resource in resources)
 		resources[resource] = 0;
-	}
+	
 	updateAll();
 	tabSelect(0);
 }
-
 
 // Tabs
 var tabLinks = new Array();
@@ -140,8 +154,8 @@ function tabSelect(tabs) {
 function tabContentHide(content) {
 	var i = 0;
 	for ( var id in content ) {
-	if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
-		i++;
+		if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
+			i++;
 	}
 }
 
@@ -162,7 +176,8 @@ function showTab() {
 
 function getFirstChildWithTagName(element, tagName) {
   for ( var i = 0; i < element.childNodes.length; i++ ) {
-    if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+    if ( element.childNodes[i].nodeName == tagName ) 
+		return element.childNodes[i];
   }
 }
 
@@ -173,8 +188,7 @@ function getHash(url) {
 
 var totalTabs = 48;
 function tellThing(tabClicked) {
-	for (var a = 1; a <= totalTabs; a++){
+	for (var a = 1; a <= totalTabs; a++)
 		document.getElementById("ug" + a).innerHTML = a;
-	}
 }
 var intervalCount = 0;

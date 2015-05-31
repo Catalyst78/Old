@@ -28,16 +28,32 @@ ul#tabs li a.selected {
 	background-color: #f1f0ee; 
 }
 div.tabContent { 
-	border: 1px solid #c9c3ba; 
-	padding: 0.5em; 
-	background-color: #f1f0ee; 
+	border: 1px solid #c9c3ba;
+	padding: 0.5em;
+	background-color: #f1f0ee;
 }
 div.tabContent.hide { 
-	display: none; 
+	display: none;
+}
+
+.myButtons {
+	border: 1px solid #c9c3ba;
+	padding: 0em;
+	padding-bottom: 0em;
+	text-decoration: none;
+	color: #000;
+	background-color: #fcfcfc;
+	width: 100px;
+	height: 70px;
+}
+
+.nopadd {
+	padding: 0em;
+	margin: 0px;
 }
 
 /* Console */
-.console{
+.console {
 	margin-top: 0;
 	margin-bottom: 0;
 	line-height: 1.15;

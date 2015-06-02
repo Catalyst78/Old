@@ -1,3 +1,5 @@
+var intervalCount = 0;
+
 function init() {
 	prepareTabs();
 	clearConsole();
@@ -5,12 +7,12 @@ function init() {
 	if (!(localStorage.getItem("save") == true )) 
 		loadGame();	
 	
-	var intervalCount = 0;
+	
 	window.setInterval(function() {
-		if (incrementMe.resource !== "") 
+		if (incrementMe.resource !== "") {
 			modifyResource(incrementMe.resource, incrementMe.number);
-		
-		
+			//showResourceText(incrementMe.resource);
+		}
 		if (intervalCount > 10) {
 			saveGame() 
 			intervalCount = 0;
@@ -20,14 +22,17 @@ function init() {
 }
                                
 // Main
-var resources = {
+var defaultResources = {
 	territory:0
 };
+var resources = defaultResources;
 
-var incrementMe = {
+var defaultIncrementMe = {
 	resource:"",
 	number:0
 }
+var incrementMe = defaultIncrementMe;
+
 function incrementResource(resource, number) {
 	incrementMe.resource = resource;
 	incrementMe.number = number;
@@ -43,18 +48,56 @@ function setResource(resource, number) {
 	document.getElementById(resource).innerHTML = resources[resource];
 }
 
-function updateAll() {
-	//document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
-	for (resource in resources)
-		document.getElementById(resource).innerHTML = resources[resource];
+function hideResourceText(resource)	{
+	if (resource != "")
+		document.getElementById(resource + "_div").style.visibility = "hidden";
 }
 
+function showResourceText(resource)	{
+	document.getElementById(resource + "_div").style.visibility = "visible";
+}
+
+function updateResourceText(resource) {
+	document.getElementById(resource).innerHTML = resources[resource];
+}
+
+function updateAll() {
+	//document.getElementById('cursorCost').innerHTML = Math.floor(10 * Math.pow(1.1, resources.cursors));
+	for (resource in resources) {
+		if (resources[resource] != 0) {
+			document.getElementById(resource).innerHTML = resources[resource];
+			updateResourceText(resource);
+			showResourceText(resource);
+		}
+	}
+}
+
+// Buttons
+var selectedButton = "";
+
 function explore() {
-	incrementMe.resource = "territory";
-	incrementMe.number = 1;
-	document.getElementById('explore_button').disabled = "disabled";
-	document.getElementById('explore_button').innerHTML = '<img class="nopadd" src="images/bunny.gif">';
+	buttonClicked("territory");
 };
+
+function buttonClicked(buttonResourceString) {
+	intervalCount = 0;
+	updateResourceText(buttonResourceString);
+	showResourceText(buttonResourceString);
+	selectedButton = buttonResourceString;
+	incrementMe.resource = buttonResourceString;
+	incrementMe.number = 1;
+	document.getElementById(buttonResourceString + "_button").disabled = "disabled";
+	document.getElementById(buttonResourceString + "_button").innerHTML = '<img class="nopadd" src="images/bunny.gif">';
+}
+
+function buttonDeselect(buttonResourceString) {
+	if (buttonResourceString != "") {
+		incrementMe = defaultIncrementMe;
+		document.getElementById(buttonResourceString + "_button").disabled = "";
+		document.getElementById(buttonResourceString + "_button").innerHTML = "Explore!<br><br>";
+		selectedButton = "";
+	}
+}
 
 function buyCursor() {
 	var cursorCost = Math.floor(10 * Math.pow(1.1,resources.cursors));  
@@ -110,13 +153,16 @@ function loadGame() {
 
 function clearAllData() {
 	intervalCount = 0;
-	var save = {
-		territory: 0,
-	}
 	clearConsole();
+	
+	var save = defaultResources;
 	localStorage.setItem("save",JSON.stringify(save));
-	for(var resource in resources)
+	
+	buttonDeselect(selectedButton);
+	for(var resource in resources) {
 		resources[resource] = 0;
+		hideResourceText(resource);
+	}
 	
 	updateAll();
 	tabSelect(0);
@@ -191,4 +237,3 @@ function tellThing(tabClicked) {
 	for (var a = 1; a <= totalTabs; a++)
 		document.getElementById("ug" + a).innerHTML = a;
 }
-var intervalCount = 0;

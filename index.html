@@ -33,11 +33,19 @@
 
 		<article class="markdown-body">	
 			<div class="tabContent" id="main_tab" ng-controller="MainController">
-				<h2>Main</h2>
-				<p>Bunny in an asteroid.</p>
-
-				<button id="explore_button" class="myButtons" onclick="explore()">Explore!<br>&zwnj;</button><br />
-				Territory explored: <span id="territory">0</span>
+				<h2>Bunny in an Asteroid</h2>
+				<p></p>
+					<div class="section group">
+						<div id="ug1" class="col span_1_of_3">!</div>
+						<div id="ug2" class="col span_1_of_3">
+							<button id="territory_button" class="myButtons" onclick="explore()">Explore!<br>&zwnj;</button><br />
+							<div id="territory_div" class="hideDiv">
+								Territory explored: <span id="territory">0</span>
+							</div>
+						</div>
+						<div id="ug3" class="col span_1_of_3">!</div>
+					</div> 
+				
 			</div>
 
 			<div class="tabContent" id="upgrades_tab">

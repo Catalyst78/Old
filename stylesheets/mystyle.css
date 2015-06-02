@@ -59,6 +59,10 @@ div.tabContent.hide {
 	line-height: 1.15;
 }
 
+.hideDiv{
+	visibility: hidden;
+}
+
 /*  GRID   ============================================================================= */
 .span_3_of_3 {
 	width: 100%; 

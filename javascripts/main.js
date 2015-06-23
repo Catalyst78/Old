@@ -22,18 +22,18 @@ function init() {
 		intervalCount += 1;
 	}, 1000);
 }
-                               
+
 // Main
-var defaultResources = {
+var DEFAULT_RESOURCES = {
 	territory:0
 };
-var resources = defaultResources;
+var resources = DEFAULT_RESOURCES;
 
-var defaultIncrementMe = {
+var DEFAULT_INCREMENT_ME = {
 	resource:"",
 	number:0
 }
-var incrementMe = defaultIncrementMe;
+var incrementMe = DEFAULT_INCREMENT_ME;
 
 function incrementResource(resource, number) {
 	incrementMe.resource = resource;
@@ -88,14 +88,14 @@ function buttonClicked(buttonResourceString) {
 	selectedButton = buttonResourceString;
 	incrementMe.resource = buttonResourceString;
 	incrementMe.number = 1;
-	document.getElementById(buttonResourceString + "_button").disabled = "disabled";
+	document.getElementById(buttonResourceString + "_button").disabled = true;
 	document.getElementById(buttonResourceString + "_button").innerHTML = '<img class="nopadd" src="images/bunny.gif">';
 }
 
 function buttonDeselect(buttonResourceString) {
 	if (buttonResourceString != "") {
-		incrementMe = defaultIncrementMe;
-		document.getElementById(buttonResourceString + "_button").disabled = "";
+		incrementMe = DEFAULT_INCREMENT_ME;
+		document.getElementById(buttonResourceString + "_button").disabled = false;
 		document.getElementById(buttonResourceString + "_button").innerHTML = "Explore!<br><br>";
 		selectedButton = "";
 	}
@@ -151,14 +151,14 @@ function loadGame() {
 	if (typeof saveGame.consoleData !== "undefined") setConsole(saveGame.consoleData);
 	if (typeof saveGame.territory !== "undefined") setResource("territory", saveGame.territory);
 	updateAll();
+	console.log("Loaded");
 }
 
 function clearAllData() {
 	intervalCount = 0;
 	clearConsole();
 	
-	var save = defaultResources;
-	localStorage.setItem("save",JSON.stringify(save));
+	localStorage.setItem("save",JSON.stringify(DEFAULT_RESOURCES));
 	
 	buttonDeselect(selectedButton);
 	for(var resource in resources) {
@@ -168,6 +168,7 @@ function clearAllData() {
 	
 	updateAll();
 	tabSelect(0);
+	console.log("Everything is gone!");
 }
 
 // Tabs
@@ -195,7 +196,7 @@ function tabSelect(tabs) {
 		tabs[id].onclick = showTab;
 		tabs[id].onfocus = function() { this.blur() };
 		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
-		i++;
+			i++;
 	}    
 }
 
@@ -225,7 +226,7 @@ function showTab() {
 function getFirstChildWithTagName(element, tagName) {
   for ( var i = 0; i < element.childNodes.length; i++ ) {
     if ( element.childNodes[i].nodeName == tagName ) 
-		return element.childNodes[i];
+			return element.childNodes[i];
   }
 }
 

@@ -4,11 +4,13 @@ function init() {
 	prepareTabs();
 	clearConsole();
 
-	if (!(localStorage.getItem("save") == true )) 
+	if ((localStorage.getItem("save") !== null )) 
 		loadGame();	
+		
+  // stop firefox from carrying over disabled tag on refresh
+	document.getElementById("territory_button").disabled = false;
 	
-	
-	window.setInterval(function() {
+  window.setInterval(function() {
 		if (incrementMe.resource !== "") {
 			modifyResource(incrementMe.resource, incrementMe.number);
 			//showResourceText(incrementMe.resource);

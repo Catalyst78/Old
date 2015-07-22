@@ -23,6 +23,7 @@ function init() {
 	}, 1000);
 }
 
+
 // Main
 var DEFAULT_RESOURCES = {
 	territory:0
@@ -74,6 +75,7 @@ function updateAll() {
 	}
 }
 
+
 // Buttons
 var selectedButton = "";
 
@@ -112,6 +114,7 @@ function buyCursor() {
 	document.getElementById('cursorCost').innerHTML = nextCost; 
 };
 
+
 // Console
 var consoleList = [];
 var maxLines = 12;
@@ -136,6 +139,7 @@ function updateConsole(newLine) {
 	document.getElementById("bunnyConsole").innerHTML = datConsoleText;
 }
 
+
 // Save & Load
 function saveGame() {
 	var save = {
@@ -158,23 +162,23 @@ function clearAllData() {
 	intervalCount = 0;
 	clearConsole();
 	
-	localStorage.setItem("save",JSON.stringify(DEFAULT_RESOURCES));
-	
 	buttonDeselect(selectedButton);
 	for(var resource in resources) {
 		resources[resource] = 0;
 		hideResourceText(resource);
 	}
+	saveGame()
 	
 	updateAll();
-	tabSelect(0);
+	showTab("main_tab");
 	console.log("Everything is gone!");
 }
+
 
 // Tabs
 var tabLinks = new Array();
 var contentDivs = new Array();
-var defualtTabSelected = 0;
+var defualtTab = 0;
 
 function prepareTabs() {
 	var tabListItems = document.getElementById('tabs').childNodes;
@@ -186,16 +190,16 @@ function prepareTabs() {
 			contentDivs[id] = document.getElementById( id );
 		}
 	}
-	tabSelect(tabLinks);
+	tabSelect(tabLinks, defualtTab);
 	tabContentHide(contentDivs);
 }
 
-function tabSelect(tabs) {    
+function tabSelect(tabs, tab) {    
 	var i = 0;
 	for ( var id in tabs ) {
-		tabs[id].onclick = showTab;
+		tabs[id].onclick = tabClicked;
 		tabs[id].onfocus = function() { this.blur() };
-		if ( i == defualtTabSelected ) tabs[id].className = 'selected';
+		if ( i == tab ) tabs[id].className = 'selected';
 			i++;
 	}    
 }
@@ -203,16 +207,18 @@ function tabSelect(tabs) {
 function tabContentHide(content) {
 	var i = 0;
 	for ( var id in content ) {
-		if ( i != defualtTabSelected ) content[id].className = 'tabContent hide';
+		if ( i != defualtTab ) content[id].className = 'tabContent hide';
 			i++;
 	}
 }
 
-function showTab() {
-  var selectedId = getHash( this.getAttribute('href') );
+function tabClicked() {
+  showTab(getHash(this.getAttribute('href')));
+}
 
+function showTab(tabId) {
   for ( var id in contentDivs ) {
-    if ( id == selectedId ) {
+    if ( id == tabId ) {
       tabLinks[id].className = 'selected';
       contentDivs[id].className = 'tabContent';
     } else {

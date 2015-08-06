@@ -180,12 +180,22 @@ div.tabContent.hide {
 	width: 100%;
 	float: left;
 	padding: 0em;
-	margin: 0 0 0 1.4%;
+	margin: 0 0 0 0.54%;
 	line-height: 0px;
 }
 
 .mygridthing img{
 	float: left;
-	padding: 0em;
+	padding: 0px;
 	margin: 0px;
+}
+
+.maparea{
+	width: 600px;
+	height: 600px;
+	background: #ddd;
+	width: 100%;
+	float: left;
+	padding: 0em;
+	margin: 0 0 0 1.4%;
 }

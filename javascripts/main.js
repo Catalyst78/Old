@@ -79,6 +79,10 @@ function updateAll() {
 // Buttons
 var selectedButton = "";
 
+function gridSpaceClick(space) {
+	document.getElementById("btn" + space).src = "images/square2.png";
+}
+
 function explore() {
 	buttonClicked("territory");
 };
